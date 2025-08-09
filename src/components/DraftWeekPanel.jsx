@@ -16,34 +16,38 @@ export default function DraftWeekPanel({ draftWeek, variant = 'compact', onEdit,
   const isExpanded = variant === 'expanded'
 
   return (
-    <div className={`card ${isExpanded ? 'col-span-full' : ''}`}>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h3 className="text-xl font-semibold text-text-primary">
+    <div className={`card card-hover animate-fade-in ${isExpanded ? 'col-span-full' : ''}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="space-y-1">
+          <h3 className="text-lg sm:text-xl font-bold text-text-primary">
             Week of {format(startDate, 'MMM d, yyyy')}
           </h3>
-          <p className="text-text-muted">
+          <p className="text-text-secondary text-sm">
             {draftWeek.posts?.length || 0} posts • {draftWeek.status}
           </p>
         </div>
         
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 self-start sm:self-auto">
           <button
             onClick={() => onSchedule?.(draftWeek)}
-            className="btn btn-primary flex items-center space-x-2"
+            className="btn btn-primary btn-sm sm:btn flex items-center space-x-2"
+            aria-label={`Schedule all posts for week of ${format(startDate, 'MMM d, yyyy')}`}
           >
-            <Play className="h-4 w-4" />
-            <span>Schedule All</span>
+            <Play className="h-4 w-4" aria-hidden="true" />
+            <span className="hidden sm:inline">Schedule All</span>
+            <span className="sm:hidden">Schedule</span>
           </button>
           <button
             onClick={() => onEdit?.(draftWeek)}
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-sm sm:btn"
+            aria-label={`Edit week of ${format(startDate, 'MMM d, yyyy')}`}
           >
             <Edit className="h-4 w-4" />
           </button>
           <button
             onClick={() => onDelete?.(draftWeek)}
-            className="btn btn-secondary text-red-400 hover:text-red-300"
+            className="btn btn-secondary btn-sm sm:btn text-red-400 hover:text-red-300"
+            aria-label={`Delete week of ${format(startDate, 'MMM d, yyyy')}`}
           >
             <Trash2 className="h-4 w-4" />
           </button>

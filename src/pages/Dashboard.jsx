@@ -31,19 +31,21 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-semibold text-text-primary">Dashboard</h1>
-          <p className="text-text-muted mt-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight">
+            Dashboard
+          </h1>
+          <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
             Manage your social media content pipeline
           </p>
         </div>
         
         <button
           onClick={handleCreateWeek}
-          className="btn btn-primary flex items-center space-x-2"
+          className="btn btn-primary flex items-center space-x-2 self-start sm:self-auto"
         >
           <Plus className="h-5 w-5" />
           <span>Create New Week</span>
@@ -51,7 +53,7 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <QuickStat
           icon={Calendar}
           title="Draft Weeks"
@@ -79,12 +81,14 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Recent Draft Weeks */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold text-text-primary">Recent Weeks</h2>
-            <button className="text-primary hover:text-primary/80">
+            <h2 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+              Recent Weeks
+            </h2>
+            <button className="text-primary hover:text-primary/80 font-medium transition-colors">
               View all →
             </button>
           </div>
@@ -108,8 +112,10 @@ export default function Dashboard() {
         </div>
 
         {/* Analytics Panel */}
-        <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-text-primary">Analytics</h2>
+        <div className="space-y-4 sm:space-y-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+            Analytics
+          </h2>
           <AnalyticsPanel variant="compact" />
         </div>
       </div>
@@ -119,15 +125,21 @@ export default function Dashboard() {
 
 function QuickStat({ icon: Icon, title, value, subtitle }) {
   return (
-    <div className="card">
-      <div className="flex items-center space-x-4">
-        <div className="p-3 bg-primary/20 rounded-lg">
-          <Icon className="h-6 w-6 text-primary" />
+    <div className="card card-hover">
+      <div className="flex items-start space-x-3 sm:space-x-4">
+        <div className="p-2 sm:p-3 bg-primary/20 rounded-lg flex-shrink-0">
+          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
         </div>
-        <div>
-          <p className="text-2xl font-bold text-text-primary">{value}</p>
-          <p className="text-text-muted text-sm">{title}</p>
-          <p className="text-text-muted text-xs">{subtitle}</p>
+        <div className="min-w-0 flex-1">
+          <p className="text-xl sm:text-2xl font-bold text-text-primary leading-tight">
+            {value}
+          </p>
+          <p className="text-text-secondary text-sm font-medium mt-1">
+            {title}
+          </p>
+          <p className="text-text-muted text-xs mt-0.5">
+            {subtitle}
+          </p>
         </div>
       </div>
     </div>
@@ -136,22 +148,28 @@ function QuickStat({ icon: Icon, title, value, subtitle }) {
 
 function EmptyState({ onCreateWeek }) {
   return (
-    <div className="card text-center py-12">
+    <div className="card text-center py-8 sm:py-12" role="region" aria-label="Empty state">
       <div className="max-w-sm mx-auto">
-        <Calendar className="h-16 w-16 text-text-muted mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-text-primary mb-2">
+        <div className="mb-4" aria-hidden="true">
+          <Calendar className="h-12 w-12 sm:h-16 sm:w-16 text-text-muted mx-auto" />
+        </div>
+        <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">
           No draft weeks yet
         </h3>
-        <p className="text-text-muted mb-6">
+        <p className="text-text-secondary mb-6 leading-relaxed">
           Create your first week of AI-generated social media content to get started.
         </p>
         <button
           onClick={onCreateWeek}
           className="btn btn-primary flex items-center space-x-2 mx-auto"
+          aria-describedby="create-week-description"
         >
-          <Plus className="h-5 w-5" />
+          <Plus className="h-5 w-5" aria-hidden="true" />
           <span>Create Your First Week</span>
         </button>
+        <p id="create-week-description" className="sr-only">
+          Navigate to the draft week creation page to generate your first week of social media content
+        </p>
       </div>
     </div>
   )
